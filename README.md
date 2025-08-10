@@ -1,3 +1,3 @@
 # Unit-Converter_Web
 
-Develop by Syed Hamai Mohi Uddin Qazi (SHMUQ)
+Develop by Syed HamaiL Mohi Uddin Qazi (SHMUQ)
