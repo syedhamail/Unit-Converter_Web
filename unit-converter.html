@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Free Online Unit Converter - Convert Length, Temperature, Weight, Speed, Time, Area, Volume, Pressure, Energy, Power quickly and easily." />
+    <meta name="keywords" content="unit, converter, unit converter, length, weight, temperature, speed, area, volume, pressure, energy, power, app" />
+    <meta name="author" content="Syed Hamail" />
+    <title>Unit Converter App 😇</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #f4f9ff, #eef3f8);
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        h1 {
+            font-weight: 600;
+            color: #2d3436;
+        }
+        .converter-box {
+            background: white; 
+            padding: 30px; 
+            border-radius: 20px; 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            margin-top: 30px;
+            transition: transform 0.2s ease-in-out;
+        }
+        .converter-box:hover {
+            transform: translateY(-3px);
+        }
+        .form-label {
+            font-weight: 500;
+            color: #444;
+        }
+        .form-select, .form-control {
+            border-radius: 12px;
+            border: 1px solid #dcdde1;
+            padding: 10px;
+            font-size: 15px;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #6c63ff, #4a47a3);
+            border: none;
+            border-radius: 12px;
+            font-weight: 500;
+            padding: 10px;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #5a52d0, #3a3790);
+        }
+        .result-box {
+            background: #f1f2f6;
+            border-radius: 12px;
+            padding: 12px;
+            margin-top: 15px;
+            font-weight: 500;
+            color: #2d3436;
+            text-align: center;
+        }
+        .ad-space {
+            background: #fafafa; 
+            text-align: center; 
+            padding: 15px; 
+            margin: 20px 0;
+            border-radius: 12px;
+            border: 1px dashed #ccc;
+        }
+         /* Footer */
+        footer {
+            background: #ffffff;
+            padding: 15px;
+            text-align: center;
+            font-size: 14px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+        }
+    </style>
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=YOUR-ADSENSE-ID" crossorigin="anonymous"></script>
+</head>
+<body>
+
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary" href="index.html">Unit Converter 😇</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="text-center mt-4">Unit Converter App 😇</h1>
+        <p class="text-center text-muted">Convert Length, Temperature, Weight, Speed, Time, Area, Volume, Pressure, Energy, and Power instantly.</p>
+
+        <!-- Ad Space Top -->
+        <div class="ad-space">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="YOUR-ADSENSE-ID"
+                 data-ad-slot="1234567890"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8 converter-box">
+                <div class="mb-3">
+                    <label class="form-label">Select Category</label>
+                    <select id="category" class="form-select" onchange="updateUnits()">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">From</label>
+                    <select id="inputUnit" class="form-select"></select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">To</label>
+                    <select id="outputUnit" class="form-select"></select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Enter Value</label>
+                    <input type="number" id="value" class="form-control" step="0.1" value="0">
+                </div>
+
+                <button class="btn btn-primary w-100" onclick="convert()">Convert</button>
+
+                <div id="result" class="result-box d-none"></div>
+            </div>
+        </div>
+
+        <!-- Ad Space Bottom -->
+        <div class="ad-space">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="YOUR-ADSENSE-ID"
+                 data-ad-slot="0987654321"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Unit Converter 😇 | Built with ❤️ for everyone</p>
+    </footer>
+
+    <script>
+        const conversions = {
+            "Length": {"Meters": 1, "Feet": 3.28084, "Inches": 39.3701, "Kilometers": 0.001, "Miles": 0.000621371},
+            "Temperature": {
+                "CelsiusToFahrenheit": val => (val * 9/5) + 32,
+                "FahrenheitToCelsius": val => (val - 32) * 5/9
+            },
+            "Weight": {"Kilograms": 1, "Grams": 1000, "Pounds": 2.20462, "Ounces": 35.274},
+            "Speed": {"Meters per second": 1, "Kilometers per hour": 3.6, "Miles per hour": 2.23694, "Knots": 1.94384},
+            "Time": {"Seconds": 1, "Minutes": 1/60, "Hours": 1/3600, "Days": 1/86400},
+            "Area": {"Square meters": 1, "Square feet": 10.7639, "Square inches": 1550, "Square kilometers": 0.000001},
+            "Volume": {"Liters": 1, "Milliliters": 1000, "Gallons": 0.264172, "Cubic meters": 0.001},
+            "Pressure": {"Pascals": 1, "Atmospheres": 0.00000986923, "Bars": 0.00001, "Psi": 0.000145038},
+            "Energy": {"Joules": 1, "Calories": 0.239006, "Kilowatt hours": 0.000000277778},
+            "Power": {"Watts": 1, "Kilowatts": 0.001, "Horsepower": 0.00134102}
+        };
+
+        const categorySelect = document.getElementById('category');
+        for (let cat in conversions) {
+            let opt = document.createElement('option');
+            opt.value = cat;
+            opt.textContent = cat;
+            categorySelect.appendChild(opt);
+        }
+
+        function updateUnits() {
+            const cat = categorySelect.value;
+            const inputUnit = document.getElementById('inputUnit');
+            const outputUnit = document.getElementById('outputUnit');
+            inputUnit.innerHTML = '';
+            outputUnit.innerHTML = '';
+
+            if (cat === "Temperature") {
+                inputUnit.innerHTML = `<option value="Celsius">Celsius</option><option value="Fahrenheit">Fahrenheit</option>`;
+                outputUnit.innerHTML = `<option value="Celsius">Celsius</option><option value="Fahrenheit">Fahrenheit</option>`;
+            } else {
+                for (let unit in conversions[cat]) {
+                    let opt1 = document.createElement('option');
+                    opt1.value = unit;
+                    opt1.textContent = unit;
+                    inputUnit.appendChild(opt1);
+
+                    let opt2 = document.createElement('option');
+                    opt2.value = unit;
+                    opt2.textContent = unit;
+                    outputUnit.appendChild(opt2);
+                }
+            }
+        }
+
+        function convert() {
+            const cat = categorySelect.value;
+            const from = document.getElementById('inputUnit').value;
+            const to = document.getElementById('outputUnit').value;
+            const value = parseFloat(document.getElementById('value').value);
+            let result;
+
+            if (from === to) {
+                result = value;
+            } else if (cat === "Temperature") {
+                if (from === "Celsius" && to === "Fahrenheit") {
+                    result = conversions["Temperature"].CelsiusToFahrenheit(value);
+                } else if (from === "Fahrenheit" && to === "Celsius") {
+                    result = conversions["Temperature"].FahrenheitToCelsius(value);
+                }
+            } else {
+                let factorFrom = conversions[cat][from];
+                let factorTo = conversions[cat][to];
+                result = value * factorTo / factorFrom;
+            }
+
+            const resultBox = document.getElementById('result');
+            resultBox.textContent = `Converted Value: ${result} ${to}`;
+            resultBox.classList.remove('d-none');
+        }
+    </script>
+
+</body>
+</html>
