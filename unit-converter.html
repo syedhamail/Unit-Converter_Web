@@ -20,73 +20,262 @@
      crossorigin="anonymous"></script>
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+        
         body {
             background: linear-gradient(135deg, #f4f9ff, #eef3f8);
             font-family: 'Poppins', sans-serif;
             min-height: 100vh;
+            margin: 0;
+            overflow-x: hidden;
         }
 
-        /* Navbar */
+        /* Navbar - Mobile First */
         .navbar {
             background-color: #ffffff;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 0.75rem 0;
+        }
+        
+        .navbar-brand {
+            font-size: clamp(1.2rem, 4vw, 1.5rem);
+            font-weight: 600;
+        }
+        
+        @media (max-width: 767px) {
+            .navbar-toggler {
+                border: none;
+                padding: 0.25rem 0.5rem;
+            }
+            .navbar-nav {
+                text-align: center;
+                margin-top: 1rem;
+            }
+            .nav-link {
+                padding: 0.75rem 1rem !important;
+                font-weight: 500;
+            }
+        }
+
+        /* Main Content */
+        .main-container {
+            padding: 20px 15px;
+            max-width: 100%;
+        }
+        
+        @media (min-width: 576px) {
+            .main-container {
+                padding: 30px 20px;
+            }
         }
 
         h1 {
             font-weight: 600;
             color: #2d3436;
+            font-size: clamp(1.75rem, 5vw, 2.5rem);
+            margin-bottom: 1rem;
+            text-align: center;
         }
+        
+        .subtitle {
+            text-align: center;
+            color: #636e72;
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
+            margin-bottom: 2rem;
+            line-height: 1.5;
+            padding: 0 10px;
+        }
+        
         .converter-box {
             background: white; 
-            padding: 30px; 
+            padding: clamp(20px, 5vw, 35px); 
             border-radius: 20px; 
             box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-            margin-top: 30px;
+            margin: 0 auto;
             transition: transform 0.2s ease-in-out;
+            max-width: 600px;
+            width: 100%;
         }
+        
         .converter-box:hover {
             transform: translateY(-3px);
         }
+        
+        @media (max-width: 576px) {
+            .converter-box {
+                border-radius: 15px;
+                margin: 0 10px;
+            }
+        }
+        
         .form-label {
             font-weight: 500;
             color: #444;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            margin-bottom: 8px;
         }
+        
         .form-select, .form-control {
             border-radius: 12px;
-            border: 1px solid #dcdde1;
-            padding: 10px;
-            font-size: 15px;
+            border: 2px solid #e8e9ea;
+            padding: 12px 15px;
+            font-size: clamp(14px, 3vw, 16px);
+            transition: all 0.3s ease;
+            background-color: #fafbfc;
         }
+        
+        .form-select:focus, .form-control:focus {
+            border-color: #6c63ff;
+            box-shadow: 0 0 0 0.2rem rgba(108, 99, 255, 0.15);
+            background-color: white;
+        }
+        
+        /* Mobile-optimized form spacing */
+        .mb-3 {
+            margin-bottom: 1.5rem !important;
+        }
+        
+        @media (max-width: 576px) {
+            .mb-3 {
+                margin-bottom: 1.25rem !important;
+            }
+        }
+        
         .btn-primary {
             background: linear-gradient(135deg, #6c63ff, #4a47a3);
             border: none;
             border-radius: 12px;
             font-weight: 500;
-            padding: 10px;
+            padding: 12px 20px;
+            font-size: clamp(14px, 3vw, 16px);
+            transition: all 0.3s ease;
+            min-height: 48px; /* Better touch target for mobile */
         }
+        
         .btn-primary:hover {
             background: linear-gradient(135deg, #5a52d0, #3a3790);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
         }
+        
         .result-box {
-            background: #f1f2f6;
+            background: linear-gradient(135deg, #f1f2f6, #e8f4f8);
             border-radius: 12px;
-            padding: 12px;
-            margin-top: 15px;
+            padding: 20px 15px;
+            margin-top: 20px;
             font-weight: 500;
             color: #2d3436;
             text-align: center;
+            border: 1px solid #dfe6e9;
+            font-size: clamp(1rem, 3vw, 1.1rem);
+            line-height: 1.4;
+            word-break: break-word;
         }
+        
+        .result-box.success {
+            background: linear-gradient(135deg, #d4edda, #c3e6cb);
+            border-color: #b3d4c2;
+            color: #155724;
+        }
+        
+        /* Ad Space Responsive */
         .ad-space {
             text-align: center; 
-            margin: 20px 0;
+            margin: clamp(15px, 4vw, 25px) auto;
+            padding: 0 10px;
+            max-width: 100%;
         }
-         /* Footer */
+        
+        .ad-space ins {
+            display: block;
+            margin: 0 auto;
+        }
+        
+        /* Footer */
         footer {
             background: #ffffff;
-            padding: 15px;
+            padding: 20px 15px;
             text-align: center;
-            font-size: 14px;
+            font-size: clamp(12px, 2.5vw, 14px);
             box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            margin-top: 30px;
+        }
+        
+        footer p {
+            margin: 0;
+            color: #666;
+        }
+        
+        /* Loading state for better UX */
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        /* Small screen optimizations */
+        @media (max-width: 480px) {
+            .main-container {
+                padding: 15px 10px;
+            }
+            
+            .converter-box {
+                padding: 20px 15px;
+                margin: 0 5px;
+            }
+            
+            .form-select, .form-control {
+                padding: 10px 12px;
+            }
+            
+            .btn-primary {
+                padding: 12px 15px;
+                font-size: 15px;
+            }
+        }
+        
+        /* Large screen optimizations */
+        @media (min-width: 1200px) {
+            .main-container {
+                padding: 40px 20px;
+            }
+            
+            .converter-box {
+                padding: 40px;
+            }
+        }
+        
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Better focus states for accessibility */
+        .form-select:focus, .form-control:focus, .btn:focus {
+            outline: 2px solid #6c63ff;
+            outline-offset: 2px;
+        }
+        
+        /* Prevent horizontal overflow */
+        .container, .container-fluid {
+            overflow-x: hidden;
+        }
+        
+        /* Result animation */
+        .result-box {
+            animation: fadeInUp 0.3s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
@@ -96,15 +285,21 @@
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
             <a class="navbar-brand fw-bold text-primary" href="/">Unit Converter 😇</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#converter">Converter</a></li>
+                </ul>
+            </div>
         </div>
     </nav>
 
-    <div class="container">
-        <h1 class="text-center mt-4">Unit Converter App 😇</h1>
-        <p class="text-center text-muted">Convert Length, Temperature, Weight, Speed, Time, Area, Volume, Pressure, Energy, and Power instantly.</p>
+    <div class="container main-container">
+        <h1>Unit Converter App 😇</h1>
+        <p class="subtitle">Convert Length, Temperature, Weight, Speed, Time, Area, Volume, Pressure, Energy, and Power instantly.</p>
 
         <!-- ✅ Top AdSense Banner -->
         <div class="ad-space">
@@ -118,32 +313,43 @@
         </div>
 
         <div class="row justify-content-center">
-            <div class="col-lg-6 col-md-8 converter-box">
-                <div class="mb-3">
-                    <label class="form-label">Select Category</label>
-                    <select id="category" class="form-select" onchange="updateUnits()">
-                        <option value="">--Select--</option>
-                    </select>
+            <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+                <div id="converter" class="converter-box">
+                    <div class="mb-3">
+                        <label class="form-label" for="category">Select Category</label>
+                        <select id="category" class="form-select" onchange="updateUnits()" aria-label="Select conversion category">
+                            <option value="">-- Choose Category --</option>
+                        </select>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 col-sm-6 mb-3">
+                            <label class="form-label" for="inputUnit">From Unit</label>
+                            <select id="inputUnit" class="form-select" aria-label="Select input unit">
+                                <option value="">-- Select From --</option>
+                            </select>
+                        </div>
+
+                        <div class="col-12 col-sm-6 mb-3">
+                            <label class="form-label" for="outputUnit">To Unit</label>
+                            <select id="outputUnit" class="form-select" aria-label="Select output unit">
+                                <option value="">-- Select To --</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="value">Enter Value</label>
+                        <input type="number" id="value" class="form-control" step="any" value="1" placeholder="Enter number to convert" aria-label="Value to convert">
+                    </div>
+
+                    <button class="btn btn-primary w-100" onclick="convert()" aria-label="Convert units">
+                        <span id="btn-text">Convert Now</span>
+                        <span id="btn-loading" class="d-none">Converting...</span>
+                    </button>
+
+                    <div id="result" class="result-box d-none" role="alert" aria-live="polite"></div>
                 </div>
-
-                <div class="mb-3">
-                    <label class="form-label">From</label>
-                    <select id="inputUnit" class="form-select"></select>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">To</label>
-                    <select id="outputUnit" class="form-select"></select>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Enter Value</label>
-                    <input type="number" id="value" class="form-control" step="0.1" value="0">
-                </div>
-
-                <button class="btn btn-primary w-100" onclick="convert()">Convert</button>
-
-                <div id="result" class="result-box d-none"></div>
             </div>
         </div>
 
@@ -161,44 +367,143 @@
 
     <!-- Footer -->
     <footer>
-        <p>© 2025 Unit Converter 😇 | Built with ❤️ for everyone</p>
+        <div class="container">
+            <p>© 2025 Unit Converter 😇 | Built with ❤️ for everyone</p>
+        </div>
     </footer>
 
     <script>
         const conversions = {
-            "Length": {"Meters": 1, "Feet": 3.28084, "Inches": 39.3701, "Kilometers": 0.001, "Miles": 0.000621371},
+            "Length": {
+                "Meters": 1, 
+                "Centimeters": 100,
+                "Millimeters": 1000,
+                "Kilometers": 0.001,
+                "Feet": 3.28084, 
+                "Inches": 39.3701, 
+                "Yards": 1.09361,
+                "Miles": 0.000621371
+            },
             "Temperature": {
                 "CelsiusToFahrenheit": val => (val * 9/5) + 32,
-                "FahrenheitToCelsius": val => (val - 32) * 5/9
+                "FahrenheitToCelsius": val => (val - 32) * 5/9,
+                "CelsiusToKelvin": val => val + 273.15,
+                "KelvinToCelsius": val => val - 273.15,
+                "FahrenheitToKelvin": val => (val - 32) * 5/9 + 273.15,
+                "KelvinToFahrenheit": val => (val - 273.15) * 9/5 + 32
             },
-            "Weight": {"Kilograms": 1, "Grams": 1000, "Pounds": 2.20462, "Ounces": 35.274},
-            "Speed": {"Meters per second": 1, "Kilometers per hour": 3.6, "Miles per hour": 2.23694, "Knots": 1.94384},
-            "Time": {"Seconds": 1, "Minutes": 1/60, "Hours": 1/3600, "Days": 1/86400},
-            "Area": {"Square meters": 1, "Square feet": 10.7639, "Square inches": 1550, "Square kilometers": 0.000001},
-            "Volume": {"Liters": 1, "Milliliters": 1000, "Gallons": 0.264172, "Cubic meters": 0.001},
-            "Pressure": {"Pascals": 1, "Atmospheres": 0.00000986923, "Bars": 0.00001, "Psi": 0.000145038},
-            "Energy": {"Joules": 1, "Calories": 0.239006, "Kilowatt hours": 0.000000277778},
-            "Power": {"Watts": 1, "Kilowatts": 0.001, "Horsepower": 0.00134102}
+            "Weight": {
+                "Kilograms": 1, 
+                "Grams": 1000, 
+                "Pounds": 2.20462, 
+                "Ounces": 35.274,
+                "Tons": 0.001,
+                "Stones": 0.157473
+            },
+            "Speed": {
+                "Meters per second": 1, 
+                "Kilometers per hour": 3.6, 
+                "Miles per hour": 2.23694, 
+                "Knots": 1.94384,
+                "Feet per second": 3.28084
+            },
+            "Time": {
+                "Seconds": 1, 
+                "Minutes": 1/60, 
+                "Hours": 1/3600, 
+                "Days": 1/86400,
+                "Weeks": 1/604800,
+                "Months": 1/2592000,
+                "Years": 1/31536000
+            },
+            "Area": {
+                "Square meters": 1, 
+                "Square centimeters": 10000,
+                "Square feet": 10.7639, 
+                "Square inches": 1550, 
+                "Square kilometers": 0.000001,
+                "Acres": 0.000247105,
+                "Hectares": 0.0001
+            },
+            "Volume": {
+                "Liters": 1, 
+                "Milliliters": 1000, 
+                "Gallons (US)": 0.264172,
+                "Gallons (UK)": 0.219969,
+                "Cubic meters": 0.001,
+                "Cubic feet": 0.0353147,
+                "Fluid ounces (US)": 33.814
+            },
+            "Pressure": {
+                "Pascals": 1, 
+                "Atmospheres": 0.00000986923, 
+                "Bars": 0.00001, 
+                "PSI": 0.000145038,
+                "Torr": 0.00750062,
+                "Kilopascals": 0.001
+            },
+            "Energy": {
+                "Joules": 1, 
+                "Calories": 0.239006, 
+                "Kilowatt hours": 0.000000277778,
+                "BTU": 0.000947817,
+                "Kilojoules": 0.001
+            },
+            "Power": {
+                "Watts": 1, 
+                "Kilowatts": 0.001, 
+                "Horsepower": 0.00134102,
+                "BTU per hour": 3.41214
+            }
         };
 
-        const categorySelect = document.getElementById('category');
-        for (let cat in conversions) {
-            let opt = document.createElement('option');
-            opt.value = cat;
-            opt.textContent = cat;
-            categorySelect.appendChild(opt);
+        // Initialize the app
+        function initializeApp() {
+            const categorySelect = document.getElementById('category');
+            
+            // Populate categories
+            for (let cat in conversions) {
+                let opt = document.createElement('option');
+                opt.value = cat;
+                opt.textContent = cat;
+                categorySelect.appendChild(opt);
+            }
+            
+            // Add real-time conversion
+            document.getElementById('value').addEventListener('input', function() {
+                if (this.value && document.getElementById('category').value) {
+                    convert();
+                }
+            });
         }
 
         function updateUnits() {
-            const cat = categorySelect.value;
+            const cat = document.getElementById('category').value;
             const inputUnit = document.getElementById('inputUnit');
             const outputUnit = document.getElementById('outputUnit');
-            inputUnit.innerHTML = '';
-            outputUnit.innerHTML = '';
+            
+            // Clear existing options
+            inputUnit.innerHTML = '<option value="">-- Select From --</option>';
+            outputUnit.innerHTML = '<option value="">-- Select To --</option>';
+            
+            // Hide result when category changes
+            document.getElementById('result').classList.add('d-none');
+
+            if (!cat) return;
 
             if (cat === "Temperature") {
-                inputUnit.innerHTML = `<option value="Celsius">Celsius</option><option value="Fahrenheit">Fahrenheit</option>`;
-                outputUnit.innerHTML = `<option value="Celsius">Celsius</option><option value="Fahrenheit">Fahrenheit</option>`;
+                const tempUnits = ["Celsius", "Fahrenheit", "Kelvin"];
+                tempUnits.forEach(unit => {
+                    let opt1 = document.createElement('option');
+                    opt1.value = unit;
+                    opt1.textContent = unit;
+                    inputUnit.appendChild(opt1);
+
+                    let opt2 = document.createElement('option');
+                    opt2.value = unit;
+                    opt2.textContent = unit;
+                    outputUnit.appendChild(opt2);
+                });
             } else {
                 for (let unit in conversions[cat]) {
                     let opt1 = document.createElement('option');
@@ -215,33 +520,74 @@
         }
 
         function convert() {
-            const cat = categorySelect.value;
+            const cat = document.getElementById('category').value;
             const from = document.getElementById('inputUnit').value;
             const to = document.getElementById('outputUnit').value;
             const value = parseFloat(document.getElementById('value').value);
-            let result;
-
-            if (from === to) {
-                result = value;
-            } else if (cat === "Temperature") {
-                if (from === "Celsius" && to === "Fahrenheit") {
-                    result = conversions["Temperature"].CelsiusToFahrenheit(value);
-                } else if (from === "Fahrenheit" && to === "Celsius") {
-                    result = conversions["Temperature"].FahrenheitToCelsius(value);
-                }
-            } else {
-                let factorFrom = conversions[cat][from];
-                let factorTo = conversions[cat][to];
-                result = value * factorTo / factorFrom;
-            }
-
             const resultBox = document.getElementById('result');
-            resultBox.textContent = `Converted Value: ${result} ${to}`;
-            resultBox.classList.remove('d-none');
+            
+            // Validation
+            if (!cat || !from || !to || isNaN(value)) {
+                resultBox.classList.add('d-none');
+                return;
+            }
+            
+            // Show loading state
+            const btnText = document.getElementById('btn-text');
+            const btnLoading = document.getElementById('btn-loading');
+            btnText.classList.add('d-none');
+            btnLoading.classList.remove('d-none');
+            
+            setTimeout(() => {
+                let result;
+
+                if (from === to) {
+                    result = value;
+                } else if (cat === "Temperature") {
+                    const conversionKey = `${from}To${to}`;
+                    if (conversions["Temperature"][conversionKey]) {
+                        result = conversions["Temperature"][conversionKey](value);
+                    } else {
+                        result = "Conversion not available";
+                    }
+                } else {
+                    let factorFrom = conversions[cat][from];
+                    let factorTo = conversions[cat][to];
+                    result = (value / factorFrom) * factorTo;
+                }
+
+                // Format result
+                if (typeof result === 'number') {
+                    // Round to 6 decimal places and remove trailing zeros
+                    result = parseFloat(result.toFixed(6));
+                    resultBox.innerHTML = `
+                        <strong>${value} ${from}</strong><br>
+                        = <strong>${result.toLocaleString()} ${to}</strong>
+                    `;
+                    resultBox.className = 'result-box success';
+                } else {
+                    resultBox.textContent = result;
+                    resultBox.className = 'result-box';
+                }
+                
+                resultBox.classList.remove('d-none');
+                
+                // Reset button state
+                btnText.classList.remove('d-none');
+                btnLoading.classList.add('d-none');
+            }, 200);
         }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', initializeApp);
+        
+        // Add keyboard support
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && document.activeElement.tagName !== 'BUTTON') {
+                convert();
+            }
+        });
     </script>
 
 </body>
 </html>
-
-
